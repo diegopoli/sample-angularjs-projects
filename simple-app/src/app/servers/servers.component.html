@@ -8,8 +8,20 @@
   [disabled]="!allowNewServer"
   (click)="onCreateServer()">Add Server</button>
 <p>{{ serverCreationStatus }}</p>
+<p *ngIf="serverCreated">The server {{ serverName }} has been created.</p>
 <p>{{ allowNewServer }}</p>
 <p [innerText]="allowNewServer"></p>
 <app-server></app-server>
 <app-server></app-server>
 <app-alerts></app-alerts>
+<label>Username</label>
+<input type="text" class="form-control" [(ngModel)]="username" />
+<p>{{ username }}</p>
+<button class="btn btn-danger" [disabled]="!username" (click)="username = ''" >Reset User</button>
+
+<!--
+<p *ngIf="serverCreated; else noServer">The server {{ serverName }} has been created.</p>
+<ng-template #noServer>
+  <p>No server was created.</p>
+</ng-template>
+-->

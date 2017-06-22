@@ -11,8 +11,7 @@
 <p *ngIf="serverCreated">The server {{ serverName }} has been created.</p>
 <p>{{ allowNewServer }}</p>
 <p [innerText]="allowNewServer"></p>
-<app-server></app-server>
-<app-server></app-server>
+<app-server *ngFor="let server of servers"></app-server>
 <app-alerts></app-alerts>
 <label>Username</label>
 <input type="text" class="form-control" [(ngModel)]="username" />
@@ -25,3 +24,17 @@
   <p>No server was created.</p>
 </ng-template>
 -->
+<p>
+  <button
+    class="btn btn-primary"
+    (click)="onCreateLog();">
+    Display Details
+  </button>
+</p>
+<p *ngIf="showSecret">Secret Password = tuna</p>
+<p
+  *ngFor="let logItem of logs; let i = index"
+  [ngClass]="{blue: i >= 5}">
+  <!--[ngClass]="{backgroundColor: i >= 5 ? 'blue' : 'white'}">-->
+  {{ logItem }}
+</p>

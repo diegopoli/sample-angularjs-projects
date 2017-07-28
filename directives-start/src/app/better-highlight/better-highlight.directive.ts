@@ -4,15 +4,20 @@ import {
   ElementRef, 
   Renderer2, 
   HostListener, 
-  HostBinding
+  HostBinding, 
+  Input
 } from '@angular/core';
 
 @Directive({
   selector: '[appBetterHighlight]'
 })
 export class BetterHighlightDirective implements OnInit {
-  @HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
-  @HostBinding('style.color') color: string = 'black';
+  @Input() defaultBackgroundColor: string = 'transparent';
+  @Input() defaultHighlightedBackgroundColor: string = 'blue';
+  @Input() defaultColor: string = 'black';
+  @Input() defaultHighlightedColor: string = 'white';
+  @HostBinding('style.backgroundColor') backgroundColor: string;
+  @HostBinding('style.color') color: string;
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) { }
 
@@ -20,6 +25,9 @@ export class BetterHighlightDirective implements OnInit {
     // This directive does not access the DOM directly, instead, it uses Renderer along with ElementRef.
     //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
     //this.renderer.setStyle(this.elRef.nativeElement, 'color', 'white');
+
+    this.backgroundColor = this.defaultBackgroundColor;
+    this.color = this.defaultColor;
   }
 
   @HostListener('mouseenter') mouseover(eventData: Event) {
@@ -27,8 +35,8 @@ export class BetterHighlightDirective implements OnInit {
     // this.renderer.setStyle(this.elRef.nativeElement, 'color', 'white');
 
     // New approach (using HostBinding)
-    this.backgroundColor = 'blue';
-    this.color = 'white';
+    this.backgroundColor = this.defaultHighlightedBackgroundColor;
+    this.color = this.defaultHighlightedColor;
   }
 
   @HostListener('mouseleave') mouseleave(eventData: Event) {
@@ -36,7 +44,7 @@ export class BetterHighlightDirective implements OnInit {
     // this.renderer.setStyle(this.elRef.nativeElement, 'color', 'black');
 
     // New approach (using HostBinding)
-    this.backgroundColor = 'transparent';
-    this.color = 'black';
+    this.backgroundColor = this.defaultBackgroundColor;
+    this.color = this.defaultColor;
   }
 }

@@ -15,7 +15,33 @@
             {{ odd }}
           </li>
         </div>
+
         <div *ngIf="!onlyOdd">
+          <h4>1) Show "onlyOdd" content using default structured directive.</h4>
+          <li
+            class="list-group-item"
+            [ngClass]="{odd: even % 2 !== 0}"
+            [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
+            *ngFor="let even of evenNumbers">
+            {{ even }}
+          </li>
+        </div>
+
+        <ng-template [ngIf]="!onlyOdd">
+          <h4>2) Show "onlyOdd" content using property binding.</h4>
+          <div>
+            <li
+              class="list-group-item"
+              [ngClass]="{odd: even % 2 !== 0}"
+              [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
+              *ngFor="let even of evenNumbers">
+              {{ even }}
+            </li>
+          </div>
+        </ng-template>
+
+        <div *appUnless="onlyOdd">
+          <h4>3) Show "onlyOdd" content using custom structured directive.</h4>
           <li
             class="list-group-item"
             [ngClass]="{odd: even % 2 !== 0}"
